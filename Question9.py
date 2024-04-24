@@ -14,12 +14,20 @@ def bc1(ya, yb):
     return np.array([ya[0] - 0, yb[0] - np.log(2)])
 
 
+def true_sol1(x):
+    return np.log(x)  # Exact solution obtained from internet
+
+
 def fun2(x, y):
     return np.vstack((y[1], y[1]*np.cos(x) - y[0]*np.log(y[0])))
 
 
 def bc2(ya, yb):
     return np.array([ya[0] - 1, yb[0] - np.exp(1)])
+
+
+def true_sol2(x):
+    return np.exp(np.sin(x))  # Exact solution obtained from internet
 
 
 def fun3(x, y):
@@ -30,12 +38,20 @@ def bc3(ya, yb):
     return np.array([ya[0] - 2**(-1/4), yb[0] - (12**(1/4))/2])
 
 
+def true_sol3(x):
+    return np.sin(x)**0.5  # Exact solution obtained from internet
+
+
 def fun4(x, y):
     return np.vstack((y[1], 0.5 - 0.5*y[1]**2 - y[0]*np.sin(x)/2))
 
 
 def bc4(ya, yb):
     return np.array([ya[0] - 2, yb[0] - 2])
+
+
+def true_sol4(x):
+    return 2 + np.sin(x)  # Exact solution obtained from internet
 
 
 # Discretising the x domain
@@ -57,7 +73,8 @@ sol3 = solve_bvp(fun3, bc3, x3, y_guess3)
 sol4 = solve_bvp(fun4, bc4, x4, y_guess4)
 
 # Plot for y′′ = −e^−2y
-plt.plot(sol1.x, sol1.y[0], label='Numerical Solution', color='red')
+plt.plot(sol1.x, true_sol1(sol1.x), label='Exact Solution', color='black')
+plt.plot(sol1.x, sol1.y[0], '--', label='Numerical Solution', color='red')
 plt.xlabel('x')
 plt.ylabel('y(x)')
 plt.title('y′′ = −e^−2y with y(1) = 0 and y(2) = ln 2')
@@ -66,7 +83,8 @@ plt.legend()
 plt.show()
 
 # Plot for y′′ = y′cos x − y ln y
-plt.plot(sol2.x, sol2.y[0], label='Numerical Solution', color='red')
+plt.plot(sol2.x, true_sol2(sol2.x), label='Exact Solution', color='black')
+plt.plot(sol2.x, sol2.y[0], '--', label='Numerical Solution', color='red')
 plt.xlabel('x')
 plt.ylabel('y(x)')
 plt.title('y′′ = y′cos x − y ln y with y(0) = 1 and y(π/2) = e')
@@ -75,7 +93,8 @@ plt.legend()
 plt.show()
 
 # Plot for y′′ = −(2(y′)^3 + y^2y′) sec x
-plt.plot(sol3.x, sol3.y[0], label='Numerical Solution', color='red')
+plt.plot(sol3.x, true_sol3(sol3.x), label='Exact Solution', color='black')
+plt.plot(sol3.x, sol3.y[0], '--', label='Numerical Solution', color='red')
 plt.xlabel('x')
 plt.ylabel('y(x)')
 plt.title('y′′ = −(2(y′)^3 + y^2y′) sec x with y(π/4) = 2^−1/4 and y(π/3) =12^(1/4)/2')
@@ -84,7 +103,8 @@ plt.legend()
 plt.show()
 
 # Plot for y′′ = 1/2 − (y′)^2/2 − y sin x/2
-plt.plot(sol4.x, sol4.y[0], label='Numerical Solution', color='red')
+plt.plot(sol4.x, true_sol4(sol4.x), label='Exact Solution', color='black')
+plt.plot(sol4.x, sol4.y[0], '--', label='Numerical Solution', color='red')
 plt.xlabel('x')
 plt.ylabel('y(x)')
 plt.title('y′′ = 1/2 − (y′)^2/2 − y sin x/2 with y(0) = 2 and y(π) = 2')
