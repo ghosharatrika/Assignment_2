@@ -13,7 +13,7 @@ double exact_solution(double t) {
 
 // This function defines the ODE
 double derivative(double t, double y) {
-    return y - t * t / 2 + 1;
+    return y - t * t  + 1;
 }
 
 // This function calculates the error bound at each step
